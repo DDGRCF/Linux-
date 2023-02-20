@@ -11,7 +11,7 @@ void* tfn(void* arg) {
 }
 
 void sys_error(const char* msg, int ret=errno) {
-  fprintf(stderr, "%s, errno=%d:%s\n", msg, ret, strerror(ret));
+  fprintf(stderr, "%s, errno=%d: %s\n", msg, ret, strerror(ret));
   exit(1);
 }
 
