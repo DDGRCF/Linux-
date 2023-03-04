@@ -15,7 +15,7 @@ void sys_error(const char* msg) {
 void catch_child(int num) {
   pid_t wpid;
   int status;
-  while ((wpid = waitpid(-1, &status, 0)) != -1) {
+  while ((wpid = waitpid(0, &status, 0)) != -1) {
     if (WIFEXITED(status)) { // 判断信号
       printf("catch child: %d, ret=%d\n", wpid, WEXITSTATUS(status)); // 读取信号
     }    
