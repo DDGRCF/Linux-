@@ -1,10 +1,10 @@
+#include <errno.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <pthread.h>
 #include <time.h>
+#include <unistd.h>
 
 pthread_rwlock_t rwlock;
 int count = 0;
@@ -55,7 +55,7 @@ int main() {
   if (ret != 0) {
     sys_error("pthread setattr", ret);
   }
-  
+
   // read
   int i;
   for (int i = 0; i < 10; i++) {

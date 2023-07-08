@@ -1,9 +1,9 @@
+#include <errno.h>
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <errno.h>
-#include <pthread.h>
 
 void* tfn(void* arg) {
   printf("I'am thread-%d:%lu\n", getpid(), pthread_self());
@@ -25,12 +25,13 @@ int main() {
     sys_error("pthread create", ret);
   }
 
-  ret = pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_DETACHED); // 设置线程分离
+  ret = pthread_attr_setdetachstate(&attr,
+                                    PTHREAD_CREATE_DETACHED);  // 设置线程分离
   if (ret != 0) {
     sys_error("setdetachstate", ret);
   }
 
-  ret = pthread_create(&tid, &attr, tfn, nullptr); 
+  ret = pthread_create(&tid, &attr, tfn, nullptr);
   if (ret != 0) {
     sys_error("pthread create", ret);
   }

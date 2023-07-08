@@ -1,10 +1,10 @@
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <sys/mman.h>
 #include <sys/types.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
 #include <unistd.h>
-#include <string.h>
 
 void sys_error(const char* msg) {
   perror(msg);
@@ -25,8 +25,10 @@ int main() {
   if ((len = lseek(fd, 0, SEEK_END)) == -1) {
     sys_error("lseek file");
   }
-  char* p = static_cast<char *>(mmap(nullptr, len, 
-      PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0));
+
+  char* p = static_cast<char*>(
+      mmap(nullptr, len, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0));
+
   if (p == MAP_FAILED) {
     sys_error("mmap");
   }
@@ -35,7 +37,8 @@ int main() {
   if ((ret = munmap(p, len)) == -1) {
     sys_error("munmap error");
   }
+
   close(fd);
-  
+
   return 0;
 }

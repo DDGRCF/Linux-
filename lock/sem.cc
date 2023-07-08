@@ -1,11 +1,11 @@
+#include <errno.h>
+#include <pthread.h>
+#include <semaphore.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <pthread.h>
 #include <time.h>
-#include <semaphore.h>
+#include <unistd.h>
 const int kNum = 5;
 
 int queue[kNum]{0};
@@ -33,7 +33,7 @@ void* producter(void* arg) {
   int i = 0;
   for (;;) {
     sem_wait(&blanket_num);
-    queue[i] = rand() %  1000 + i;
+    queue[i] = rand() % 1000 + i;
     printf("--Product: %d\n", queue[i]);
     sem_post(&product_num);
     i = (i + 1) % kNum;
